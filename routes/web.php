@@ -16,11 +16,11 @@ Route::post('/login', [AuthController::class, 'login']);
 
 Route::middleware('auth')->group(function () {
 
-    // Dashboard
-    Route::get('/dashboard', function () {
-        return view('dashboard');
-    })->name('dashboard');
 
-    // Logout
-    Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->name('dashboard')->middleware('auth');
+
+
+Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 });
