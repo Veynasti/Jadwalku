@@ -6,8 +6,7 @@
 
 <div
     class="min-h-screen flex items-center justify-center p-4 bg-cover bg-center"
-    style="background-image: url('{{ asset('images/saxon-switzerland-national-park-forest-day-light-green-5k-3840x2160-41.jpg') }}');"
->
+    style="background-image: url('{{ asset('images/saxon-switzerland-national-park-forest-day-light-green-5k-3840x2160-41.jpg') }}');">
 
     {{-- MODIFIKASI: Tambahkan bg-white/50, backdrop-blur-md, dan shadow-2xl untuk efek blur --}}
     <div class="max-w-md w-full bg-white/20 backdrop-blur-md rounded-xl shadow-2xl overflow-hidden">
