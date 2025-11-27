@@ -32,15 +32,13 @@
                         required
                         autocomplete="email"
                         @class([
-                            // MODIFIKASI: Tambahkan pl-10 (padding kiri) untuk memberi ruang pada ikon
                             'w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-800 transition duration-200 pr-10',
                             'border-red-500' => $errors->has('email'),
                             'border-black-200' => !$errors->has('email')
                         ])
                         placeholder="Enter your email"
-                        value="{{ old('email') }}"
-                    >
-                    {{-- MODIFIKASI: Tambahkan Ikon Email --}}
+                        value="{{ old('email') }}">
+
                     <div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
                         <svg class="h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
@@ -76,8 +74,7 @@
                     <button
                         type="button"
                         class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600 focus:outline-none"
-                        onclick="togglePassword()"
-                    >
+                        onclick="togglePassword()">
                         <svg id="eye-icon" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
@@ -101,10 +98,6 @@
                         Ingatkan Saya
                     </label>
                 </div>
-
-                {{-- <a href="#" class="text-sm text-blue-600 hover:text-blue-500 font-medium">
-                    Forgot password?
-                </a> --}}
             </div>
 
             <button
