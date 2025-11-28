@@ -8,23 +8,23 @@ use Illuminate\Support\Facades\Auth;
 
 class TaskController extends Controller
 {
-    //Nampilin semua task user
+    // Nampilin semua task user
     public function index()
     {
-        $tasks = Task::where('user_id, Auth::id()')
+        $tasks = Task::where('user_id', Auth::id())
             ->orderBy('date', 'asc')
             ->get();
 
-        return view('task.index', compact('tasks'));
+        return view('tasks.index', compact('tasks'));
     }
 
-    //Form tambah task
+    // Form tambah task
     public function create()
     {
         return view('tasks.create');
     }
 
-    //ngesimpen task baru
+    // Ngesimpan task baru
     public function store(Request $request)
     {
         $request->validate([
@@ -44,19 +44,18 @@ class TaskController extends Controller
         return redirect()->route('tasks.index')->with('success', 'Task berhasil ditambahkan');
     }
 
-    //form edit task
+    // Form edit task
     public function edit(Task $task)
     {
-        //pastikan hanya pemilik bisa edit
-        if ($task->user_id != Auth::id()){
+        if ($task->user_id != Auth::id()) {
             abort(403);
         }
 
         return view('tasks.edit', compact('task'));
     }
 
-    //update task
-    public function update (Request $request, Task $task)
+    // Update task
+    public function update(Request $request, Task $task)
     {
         if ($task->user_id !== Auth::id()) {
             abort(403);
@@ -69,12 +68,17 @@ class TaskController extends Controller
             'status' => 'required|in:pending,done',
         ]);
 
-        $task->update($request->all());
+        $task->update([
+            'title'       => $request->title,
+            'description' => $request->description,
+            'date'        => $request->date,
+            'status'      => $request->status,
+        ]);
 
-        return redirect()->route('tasks.index')->with('succes', 'Task berhasil diperbarui!');
+        return redirect()->route('tasks.index')->with('success', 'Task berhasil diperbarui!');
     }
 
-    //hapus task
+    // Hapus task
     public function destroy(Task $task)
     {
         if ($task->user_id !== Auth::id()) {
@@ -83,10 +87,10 @@ class TaskController extends Controller
 
         $task->delete();
 
-        return redirect()->route('tasks.index')->with(success, 'Task berhasil dihapus!');
+        return redirect()->route('tasks.index')->with('success', 'Task berhasil dihapus!');
     }
 
-    //Tandai task sebagai selesai
+    // Tandai task sebagai selesai
     public function done(Task $task)
     {
         if ($task->user_id !== Auth::id()) {

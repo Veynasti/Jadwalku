@@ -23,28 +23,32 @@
 
         <form action="/register" method="POST" class="space-y-4">
             @csrf
-            <div>
-                <label class="block text-gray-400 font-medium mb-1">Nama</label>
-                <input type="text" name="name" value="{{ old('name') }}"
-                    class="w-full px-4 py-2 border rounded-lg focus:ring focus:ring-gray-700 outline-none" required>
+            <label class="block text-white/80 text-sm font-semibold mb-2">Nama</label>
+            <div class="relative">
+                <input type="text" name="name" placeholder="Masukkan nama lengkap"
+                    class="w-full bg-white/10 text-white border border-white/30 rounded-lg py-2 px-4
+                    focus:outline-none focus:ring-2 focus:ring-green-500 transition duration-150 ease-in-out" required>
             </div>
 
-            <div>
-                <label class="block text-gray-400 font-medium mb-1">Email</label>
-                <input type="email" name="email" value="{{ old('email') }}"
-                    class="w-full px-4 py-2 border rounded-lg focus:ring focus:ring-gray-700 outline-none" required>
+            <label class="block text-white/80 text-sm font-semibold mb-2">Email</label>
+            <div class="relative">
+                <input type="email" name="email" placeholder="andreas10@gmail.com"
+                    class="w-full bg-white/10 text-white border border-white/30 rounded-lg py-2 px-4
+                    focus:outline-none focus:ring-2 focus:ring-green-500 transition duration-150 ease-in-out" required>
             </div>
 
-            <div>
-                <label class="block text-gray-400 font-medium mb-1">Password</label>
-                <input type="password" name="password"
-                    class="w-full px-4 py-2 border rounded-lg focus:ring focus:ring-gray-700 outline-none" required>
+            <label class="block text-white/80 text-sm font-semibold mb-2">Password</label>
+            <div class="relative">
+                <input type="text" name="password" placeholder="minimal 6 karakter"
+                    class="w-full bg-white/10 text-white border border-white/30 rounded-lg py-2 px-4
+                    focus:outline-none focus:ring-2 focus:ring-green-500 transition duration-150 ease-in-out" required>
             </div>
 
-            <div>
-                <label class="block text-gray-400 font-medium mb-1">Ulangi Password</label>
-                <input type="password" name="password_confirmation"
-                    class="w-full px-4 py-2 border rounded-lg focus:ring focus:ring-gray-700 outline-none" required>
+            <label class="block text-white/80 text-sm font-semibold mb-2">Konfirmasi Password</label>
+            <div class="relative">
+                <input type="text" name="password_confirmation" placeholder="Ulangi password anda"
+                    class="w-full bg-white/10 text-white border border-white/30 rounded-lg py-2 px-4
+                    focus:outline-none focus:ring-2 focus:ring-green-500 transition duration-150 ease-in-out" required>
             </div>
 
             <button class="w-full bg-green-600 text-white py-2 rounded-lg font-semibold hover:bg-green-700 duration-200">
@@ -52,7 +56,7 @@
             </button>
         </form>
 
-        <p class="text-center text-sm mt-5 text-gray-400">
+        <p class="text-center text-sm mt-5 text-gray-200">
             Sudah punya akun?
             <a href="/login" class="text-green-600 hover:underline">Login di sini</a>
         </p>

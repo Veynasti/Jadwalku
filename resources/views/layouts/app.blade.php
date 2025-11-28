@@ -1,20 +1,105 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<html lang="en">
 <head>
-    <meta charset="utf-8">
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <title>@yield('title', 'Jadwalku')</title>
 
-    <title>Jadwalku</title>
+    {{-- ICONS --}}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.bunny.net">
-    <link href="https://fonts.bunny.net/css?family=inter:400,500,600,700" rel="stylesheet" />
-
-    <!-- Scripts -->
+    {{-- VITE --}}
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
-<body class="font-sans antialiased bg-gray-50">
-    @yield('content')
+
+<body class="h-screen overflow-hidden">
+
+    {{-- Background Fixed --}}
+    <div class="fixed inset-0 bg-cover bg-center z-0"
+        style="background-image: url('{{ asset('images/saxon-switzerland-national-park-forest-day-light-green-5k-3840x2160-41.jpg') }}');">
+    </div>
+    <div class="fixed inset-0 bg-black/40 z-0"></div>
+
+    {{-- Wrapper Utama --}}
+    <div class="relative z-10 flex h-screen">
+
+        {{-- Sidebar --}}
+        <aside class="w-64 bg-white/20 backdrop-blur-sm h-screen shadow-lg p-6 shrink-0">
+            <h2 class="text-2xl font-bold mb-8 text-green-600">Jadwalku</h2>
+
+            <ul class="space-y-4">
+                <li>
+                    <a href="{{ route('dashboard') }}"
+                        class="block px-3 py-2 font-semibold rounded hover:bg-green-600 text-white transition-colors">
+                        <i class="fas fa-th-large mr-3"></i> Dashboard
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ route('tasks.index') }}"
+                        class="block px-3 py-2 font-semibold rounded hover:bg-green-600 text-white transition-colors">
+                        <i class="fas fa-list-check mr-3"></i> To-Do List
+                    </a>
+                </li>
+                <li>
+                    <a href="#"
+                        class="block px-3 py-2 font-semibold rounded hover:bg-green-600 text-white transition-colors">
+                        <i class="fas fa-calendar-alt mr-3"></i> Kalender
+                    </a>
+                </li>
+                <li>
+                    <a href="#"
+                        class="block px-3 py-2 font-semibold rounded hover:bg-green-600 text-white transition-colors">
+                        <i class="fas fa-calendar-week mr-3"></i> 7 Hari Ke Depan
+                    </a>
+                </li>
+                <li>
+                    <a href="#"
+                        class="block px-3 py-2 font-semibold rounded hover:bg-green-600 text-white transition-colors">
+                        <i class="fas fa-user-circle mr-3"></i> Profil
+                    </a>
+                </li>
+            </ul>
+
+            {{-- Logout --}}
+            <form action="{{ route('logout') }}" method="POST" class="mt-20">
+                @csrf
+                <button class="w-full font-semibold bg-red-800 text-white py-2 rounded hover:bg-red-700 transition-colors">
+                    Logout
+                </button>
+            </form>
+        </aside>
+
+        {{-- Main Content --}}
+        <main class="flex-1 h-screen overflow-y-auto">
+
+            {{-- Header (Navbar Terapung dengan padding top) --}}
+            <header class="sticky top-0 z-10 pt-6 px-6">
+                <div class="bg-white/80 backdrop-blur-sm rounded-xl shadow-lg px-6 py-4 flex items-center justify-between">
+                    <h1 class="text-xl font-semibold text-gray-700">@yield('header', 'Dashboard')</h1>
+
+                    {{-- Nama User --}}
+                    @auth
+                        <div class="text-gray-600 font-semibold">
+                            Halo, {{ Auth::user()->name }}
+                        </div>
+                    @endauth
+
+                    @guest
+                        <div class="text-gray-400 italic">
+                            Belum login
+                        </div>
+                    @endguest
+                </div>
+            </header>
+
+            {{-- Content Area --}}
+            <section class="p-6">
+                @yield('content')
+            </section>
+
+        </main>
+
+    </div>
+
 </body>
 </html>
