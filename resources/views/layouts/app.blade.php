@@ -1,5 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
+<script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -24,10 +26,10 @@
     <div class="relative z-10 flex h-screen">
 
         {{-- Sidebar --}}
-        <aside class="w-64 bg-white/20 backdrop-blur-sm h-screen shadow-lg p-6 shrink-0">
-            <h2 class="text-2xl font-bold mb-8 text-green-600">Jadwalku</h2>
+        <aside class="w-64 bg-white/20 backdrop-blur-sm h-screen shadow-lg p-10 shrink-0">
+            <h2 class="text-2xl font-bold mb-8 text-center text-green-600">Jadwalku</h2>
 
-            <ul class="space-y-4">
+            <ul class="space-y-5">
                 <li>
                     <a href="{{ route('dashboard') }}"
                         class="block px-3 py-2 font-semibold rounded hover:bg-green-600 text-white transition-colors">
@@ -38,12 +40,6 @@
                     <a href="{{ route('tasks.index') }}"
                         class="block px-3 py-2 font-semibold rounded hover:bg-green-600 text-white transition-colors">
                         <i class="fas fa-list-check mr-3"></i> To-Do List
-                    </a>
-                </li>
-                <li>
-                    <a href="#"
-                        class="block px-3 py-2 font-semibold rounded hover:bg-green-600 text-white transition-colors">
-                        <i class="fas fa-calendar-alt mr-3"></i> Kalender
                     </a>
                 </li>
                 <li>
@@ -63,7 +59,7 @@
             {{-- Logout --}}
             <form action="{{ route('logout') }}" method="POST" class="mt-20">
                 @csrf
-                <button class="w-full font-semibold bg-red-800 text-white py-2 rounded hover:bg-red-700 transition-colors">
+                <button class="w-full font-semibold bg-red-800 text-white py-2 rounded hover:bg-red-700 transition-colors mt-90">
                     Logout
                 </button>
             </form>
@@ -75,7 +71,7 @@
             {{-- Header (Navbar Terapung dengan padding top) --}}
             <header class="sticky top-0 z-10 pt-6 px-6">
                 <div class="bg-white/80 backdrop-blur-sm rounded-xl shadow-lg px-6 py-4 flex items-center justify-between">
-                    <h1 class="text-xl font-semibold text-gray-700">@yield('header', 'Dashboard')</h1>
+                    <h1 class="text-xl font-semibold text-gray-700">Selamat Datang</h1>
 
                     {{-- Nama User --}}
                     @auth

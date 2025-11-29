@@ -19,10 +19,10 @@ class TaskController extends Controller
     }
 
     // Form tambah task
-    public function create()
-    {
-        return view('tasks.create');
-    }
+    // public function create()
+    // {
+    //     return view('tasks.create');
+    // }
 
     // Ngesimpan task baru
     public function store(Request $request)
@@ -45,14 +45,14 @@ class TaskController extends Controller
     }
 
     // Form edit task
-    public function edit(Task $task)
-    {
-        if ($task->user_id != Auth::id()) {
-            abort(403);
-        }
+    // public function edit(Task $task)
+    // {
+    //     if ($task->user_id != Auth::id()) {
+    //         abort(403);
+    //     }
 
-        return view('tasks.edit', compact('task'));
-    }
+    //     return view('tasks.edit', compact('task'));
+    // }
 
     // Update task
     public function update(Request $request, Task $task)
@@ -65,14 +65,14 @@ class TaskController extends Controller
             'title' => 'required',
             'description' => 'nullable',
             'date' => 'required|date',
-            'status' => 'required|in:pending,done',
+            // 'status' => 'required|in:pending,done',
         ]);
 
         $task->update([
             'title'       => $request->title,
             'description' => $request->description,
             'date'        => $request->date,
-            'status'      => $request->status,
+            // 'status'      => $request->status,
         ]);
 
         return redirect()->route('tasks.index')->with('success', 'Task berhasil diperbarui!');

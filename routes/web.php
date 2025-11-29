@@ -9,7 +9,7 @@ Route::get('/', fn() => redirect()->route('login'));
 
 
 // ----------------------
-// AUTH ROUTES
+// AUTH ROUTES (GUEST)
 // ----------------------
 Route::middleware('guest')->group(function () {
     Route::get('/register', [AuthController::class, 'showRegister'])->name('register');
@@ -21,31 +21,29 @@ Route::middleware('guest')->group(function () {
 
 
 // ----------------------
-// ROUTES BUTUH LOGIN
+// ROUTES BUTUH LOGIN (AUTH)
 // ----------------------
 Route::middleware('auth')->group(function () {
 
     // Dashboard
-    Route::get('/dashboard', function () {
-        return view('dashboard');
-    })->name('dashboard');
+    Route::get('/dashboard', fn() => view('dashboard'))->name('dashboard');
 
     // Logout
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
     // ----------------------
-    // CRUD TASKS
+    // TASKS (CRUD + DONE)
     // ----------------------
     Route::prefix('tasks')->name('tasks.')->group(function () {
 
         Route::get('/', [TaskController::class, 'index'])->name('index');
-        Route::get('/create', [TaskController::class, 'create'])->name('create');
+
+        // create & edit tidak diperlukan (pakai modal)
         Route::post('/', [TaskController::class, 'store'])->name('store');
-        Route::get('/{task}/edit', [TaskController::class, 'edit'])->name('edit');
         Route::put('/{task}', [TaskController::class, 'update'])->name('update');
         Route::delete('/{task}', [TaskController::class, 'destroy'])->name('destroy');
 
-        // Done
+        // Tandai selesai
         Route::put('/{task}/done', [TaskController::class, 'done'])->name('done');
     });
 });
