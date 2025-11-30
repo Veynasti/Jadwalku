@@ -7,11 +7,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@yield('title', 'Jadwalku')</title>
 
+    <link rel="icon" type="image/png" href="{{ asset('images/11zon_cropped.png') }}">
     {{-- ICONS --}}
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-
     {{-- VITE --}}
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+
 </head>
 
 <body class="h-screen overflow-hidden">
@@ -60,46 +61,45 @@
                 </li>
             </ul>
 
+
             {{-- Logout --}}
-            <form action="{{ route('logout') }}" method="POST" class="mt-20">
+            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="mt-20">
                 @csrf
-                <button class="w-full font-semibold bg-red-800 text-white py-2 rounded hover:bg-red-700 transition-colors mt-90">
+                <button type="button"
+                    onclick="logoutConfirm()"
+                    class="w-full font-semibold bg-red-800 text-white py-2 rounded hover:bg-red-700 transition-colors mt-90">
                     Logout
                 </button>
             </form>
+            
+            <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+            <script>
+            function logoutConfirm() {
+                Swal.fire({
+                    title: "Yakin ingin logout?",
+                    text: "Kamu akan keluar dari akun ini.",
+                    icon: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#d33",
+                    cancelButtonColor: "#3085d6",
+                    confirmButtonText: "Logout",
+                    cancelButtonText: "Batal"
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        document.getElementById("logout-form").submit();
+                    }
+                });
+            }
+            </script>
         </aside>
 
         {{-- Main Content --}}
         <main class="flex-1 h-screen overflow-y-auto">
-
-            {{-- Header (Navbar Terapung dengan padding top) --}}
-            <header class="sticky top-0 z-10 pt-6 px-6">
-                <div class="bg-white/80 backdrop-blur-sm rounded-xl shadow-lg px-6 py-4 flex items-center justify-between">
-                    <h1 class="text-xl font-semibold text-gray-700">Selamat Datang</h1>
-
-                    {{-- Nama User --}}
-                    @auth
-                        <div class="text-gray-600 font-semibold">
-                            Halo, {{ Auth::user()->name }}
-                        </div>
-                    @endauth
-
-                    @guest
-                        <div class="text-gray-400 italic">
-                            Belum login
-                        </div>
-                    @endguest
-                </div>
-            </header>
-
-            {{-- Content Area --}}
             <section class="p-6">
                 @yield('content')
             </section>
-
         </main>
-
     </div>
-
 </body>
 </html>

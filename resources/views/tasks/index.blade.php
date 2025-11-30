@@ -147,9 +147,6 @@
         </div>
     </div>
 
-    {{-- ============================= --}}
-    {{-- MODAL EDIT KEGIATAN --}}
-    {{-- ============================= --}}
     {{-- MODAL EDIT KEGIATAN --}}
     <div x-show="openEdit"
         x-transition.opacity
