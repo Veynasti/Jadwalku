@@ -26,10 +26,20 @@ Route::middleware('guest')->group(function () {
 Route::middleware('auth')->group(function () {
 
     // Dashboard
-    Route::get('/dashboard', fn() => view('dashboard'))->name('dashboard');
+    // Route::get('/dashboard', fn() => view('dashboard'))->name('dashboard');
+    Route::get('/dashboard', function () {
+    $tasks = \App\Models\Task::where('user_id', auth()->id())
+                ->latest()
+                ->take(5) // tampilkan 5 task terbaru (opsional)
+                ->get();
 
+    return view('dashboard', compact('tasks'));
+    })->name('dashboard');
     // Logout
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+
+    //schedule
+    Route::get('/schedule', [TaskController::class, 'weekSchedule'])->name('tasks.schedule');
 
     // ----------------------
     // TASKS (CRUD + DONE)
@@ -38,6 +48,8 @@ Route::middleware('auth')->group(function () {
 
         Route::get('/', [TaskController::class, 'index'])->name('index');
 
+        Route::get('/history', [TaskController::class, 'history'])->name('history');
+        
         // create & edit tidak diperlukan (pakai modal)
         Route::post('/', [TaskController::class, 'store'])->name('store');
         Route::put('/{task}', [TaskController::class, 'update'])->name('update');

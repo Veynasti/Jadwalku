@@ -32,26 +32,30 @@
             <ul class="space-y-5">
                 <li>
                     <a href="{{ route('dashboard') }}"
-                        class="block px-3 py-2 font-semibold rounded hover:bg-green-600 text-white transition-colors">
+                        class="block px-3 py-2 font-semibold rounded transition-colors
+                        {{ request()->routeIs('dashboard') ? 'bg-green-600 text-white' : 'text-white hover:bg-green-600' }}">
                         <i class="fas fa-th-large mr-3"></i> Dashboard
                     </a>
                 </li>
                 <li>
                     <a href="{{ route('tasks.index') }}"
-                        class="block px-3 py-2 font-semibold rounded hover:bg-green-600 text-white transition-colors">
+                        class="block px-3 py-2 font-semibold rounded transition-colors
+                        {{ request()->routeIs('tasks.index') ? 'bg-green-600 text-white' : 'text-white hover:bg-green-600' }}">
                         <i class="fas fa-list-check mr-3"></i> To-Do List
                     </a>
                 </li>
                 <li>
-                    <a href="#"
-                        class="block px-3 py-2 font-semibold rounded hover:bg-green-600 text-white transition-colors">
+                    <a href="{{ route('tasks.schedule') }}"
+                        class="block px-3 py-2 font-semibold rounded transition-colors
+                        {{ request()->routeIs('tasks.schedule') ? 'bg-green-600 text-white' : 'text-white hover:bg-green-600' }}">
                         <i class="fas fa-calendar-week mr-3"></i> 7 Hari Ke Depan
                     </a>
                 </li>
                 <li>
-                    <a href="#"
-                        class="block px-3 py-2 font-semibold rounded hover:bg-green-600 text-white transition-colors">
-                        <i class="fas fa-user-circle mr-3"></i> Profil
+                    <a href="{{ route('tasks.history') }}"
+                        class="block px-3 py-2 font-semibold rounded transition-colors
+                        {{ request()->routeIs('tasks.history') ? 'bg-green-600 text-white' : 'text-white hover:bg-green-600' }}">
+                        <i class="fas fa-calendar-week mr-3"></i> Riwayat
                     </a>
                 </li>
             </ul>

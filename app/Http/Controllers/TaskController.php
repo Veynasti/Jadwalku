@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Task;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Carbon\Carbon;
 
 class TaskController extends Controller
 {
@@ -18,13 +19,6 @@ class TaskController extends Controller
         return view('tasks.index', compact('tasks'));
     }
 
-    // Form tambah task
-    // public function create()
-    // {
-    //     return view('tasks.create');
-    // }
-
-    // Ngesimpan task baru
     public function store(Request $request)
     {
         $request->validate([
@@ -43,16 +37,6 @@ class TaskController extends Controller
 
         return redirect()->route('tasks.index')->with('success', 'Task berhasil ditambahkan');
     }
-
-    // Form edit task
-    // public function edit(Task $task)
-    // {
-    //     if ($task->user_id != Auth::id()) {
-    //         abort(403);
-    //     }
-
-    //     return view('tasks.edit', compact('task'));
-    // }
 
     // Update task
     public function update(Request $request, Task $task)
@@ -100,5 +84,31 @@ class TaskController extends Controller
         $task->update(['status' => 'done']);
 
         return redirect()->route('tasks.index')->with('success', 'Task selesai!');
+    }
+
+    public function weekSchedule()
+    {
+        $today = Carbon::today();
+        $nextWeek = Carbon::today()->addDays(7);
+
+        $tasks = Task::whereBetween('date', [$today, $nextWeek])
+                    ->where('user_id', auth()->id())
+                    ->orderBy('date', 'asc')
+                    ->get();
+
+        // Group per tanggal
+        $grouped = $tasks->groupBy('date');
+
+        return view('tasks.schedule', compact('grouped', 'today', 'nextWeek'));
+    }
+
+    public function history()
+    {
+        $tasks = Task::where('user_id', auth()->id())
+            ->where('status', 'done')
+            ->orderBy('date', 'desc')
+            ->get();
+
+        return view('tasks.history', compact('tasks'));
     }
 }
